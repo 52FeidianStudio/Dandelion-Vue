@@ -77,9 +77,9 @@ export default {
   },
   methods: {
     change() {
-      this.$http.post('/dandelion/predicate/update',this.form).then(res => {
+      this.$http.post('/predicate/update',this.form).then(res => {
         console.log(res,this.form.predicate_name)
-        this.$router.push('/dandelion/predicate/list')
+        this.$router.push('/predicate/list')
       }).catch(err => {
         console.log(err,this.form.predicate_name)
       })
@@ -89,7 +89,7 @@ export default {
     this.form.remark = this.$route.query.remark
     this.form.config = this.$route.query.config[0]
     this.form.id = this.$route.query.id
-    this.$http.get('/dandelion/route/predicate/list').then(res => {
+    this.$http.get('/route/predicate/list').then(res => {
       this.form.des = res.data.remark
     }).catch(err => {
       console.log(err,'cuole')

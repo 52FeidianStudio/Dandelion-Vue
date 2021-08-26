@@ -45,7 +45,7 @@
 export default {
   methods: {
     search(){
-      this.$http.get('dandelion/route/findById',{params:{routeId:this.routeId}}).then(res => {
+      this.$http.get('/route/findById',{params:{routeId:this.routeId}}).then(res => {
         console.log(res,typeof (this.routeId))
         this.route_id[0] = res.data
       }).catch((err)=>{
@@ -53,9 +53,9 @@ export default {
       })
     },
     remove(row){
-      this.$http.get('dandelion/route/delete',{params:{routeId:row.id}}).then(res => {
+      this.$http.get('/route/delete',{params:{routeId:row.id}}).then(res => {
         console.log(res)
-        this.$http.get('dandelion/config/list').then(res => {
+        this.$http.get('/route/list').then(res => {
           this.route_id = res.data
         })
       }).catch(err => {
@@ -80,7 +80,7 @@ export default {
     }
   },
   created(){
-      this.$http.get('dandelion/config/list').then((res) => {
+      this.$http.get('/route/list').then((res) => {
         console.log(res);
         this.route_id = res.data
        })
@@ -139,7 +139,7 @@ export default {
   font-size: 15px;
   width: 70px;
   margin: 0%;
-  padding: 0%; 
+  padding: 0%;
  }
  #table{
    position: relative;

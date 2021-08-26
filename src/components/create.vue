@@ -121,10 +121,10 @@ export default {
   methods: {
     update() {
       console.log(this.router_id)
-      this.$http.post("/dandelion/route/insert", this.content).then((res) => {
+      this.$http.post("/route/insert", this.content).then((res) => {
         console.log(res);
         console.log('成功发射')
-        this.$router.push('/dandelion/predicate/list')
+        this.$router.push('/predicate/list')
       });
     },
   },

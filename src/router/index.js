@@ -27,7 +27,7 @@ const routes = [
     name:'home',
     component:home,
     children:[{
-      path:'/dandelion/config/list',
+      path:'/config/list',
       name:'configlist',
       component:configList
     },
@@ -37,7 +37,7 @@ const routes = [
       component:regular
     },
     {
-      path:'/dandelion/predicate/list',
+      path:'/predicate/list',
       name:'list',
       component:List
     },
@@ -47,17 +47,17 @@ const routes = [
       component:Filter
     },
     {
-      path:'/dandelion/config/details',
+      path:'/config/details',
       name:'details',
       component:Details
     },
     {
-      path:'/dandelion/predicate/update',
+      path:'/predicate/update',
       name:'update',
       component:update
     },
     {
-      path:'/dandelion/config/create',
+      path:'/config/create',
       name:'create',
       component:create
     }]

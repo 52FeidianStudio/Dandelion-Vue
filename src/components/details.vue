@@ -121,7 +121,7 @@ export default {
   methods: {
     update() {
       console.log(this.router_id)
-      this.$http.post("/dandelion/route/update", this.content).then((res) => {
+      this.$http.post("/route/update", this.content).then((res) => {
         console.log(res);
       });
     },

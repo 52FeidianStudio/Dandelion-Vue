@@ -22,14 +22,14 @@
               <i class="el-icon-s-grid"></i>
               <span>配置管理</span>
             </template>
-            <el-menu-item index="/dandelion/config/list">配置列表</el-menu-item>
+            <el-menu-item index="/config/list">配置列表</el-menu-item>
           </el-submenu>
           <el-submenu index="3">
             <template slot="title">
               <i class="el-icon-s-operation"></i>
               <span>断言管理</span>
             </template>
-            <el-menu-item index="/dandelion/predicate/list">断言列表</el-menu-item>
+            <el-menu-item index="/predicate/list">断言列表</el-menu-item>
           </el-submenu>
           <el-submenu index="4">
             <template slot="title">

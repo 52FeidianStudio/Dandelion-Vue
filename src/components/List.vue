@@ -81,16 +81,16 @@
 export default {
   methods:{
     remove(row){
-      this.$http.post('/dandelion/predicate/delete',{id:row.id,predicate_name:row.predicate_name}).then(res => {
+      this.$http.post('/predicate/delete',{id:row.id,predicate_name:row.predicate_name}).then(res => {
         console.log(res.data)
-        this.$http.get('/dandelion/predicate/list').then(res => {
+        this.$http.get('/predicate/list').then(res => {
           this.Path = res.data
         })
       })
     },
     edit(row){
       this.$router.push({
-        path:'/dandelion/predicate/update',
+        path:'/predicate/update',
         query:{
           remark:row.remark,
           config:row.config,
@@ -128,7 +128,7 @@ export default {
     }
   },
   created(){
-    this.$http.get('/dandelion/predicate/list').then(res => {
+    this.$http.get('/predicate/list').then(res => {
       this.Path = res.data
 
       console.log(res.data,'请求成功')
