@@ -10,8 +10,8 @@
   >
     <div id="pic">
       <img src="../assets/all.png" alt="无法显示图片">
-    </div> 
-    
+    </div>
+
     <a-form-item>
       <a-input
         v-decorator="[
@@ -36,7 +36,7 @@
       </a-input>
     </a-form-item>
     <!-- <a-form-item class="login-form-button"> -->
-      <a-button type="primary" html-type="submit" class="login-form-button">
+      <a-button @click="gotolink" type="primary" html-type="submit" class="login-form-button">
         登录
       </a-button>
     <!-- </a-form-item> -->
@@ -58,6 +58,13 @@ export default {
         }
       });
     },
+    gotolink(){
+      //点击跳转至上次浏览页面
+      // this.$router.go(-1)
+      //指定跳转地址
+      this.$router.replace('/dandelion')
+    }
+
   },
 };
 </script>
