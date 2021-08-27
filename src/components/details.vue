@@ -40,10 +40,10 @@
     <div id="table_place">
       <div id="tit">
         <el-button-group id="group">
-          <el-button type="primary" plain size="small">断言列表</el-button>
-          <el-button type="primary" plain size="small">过滤列表</el-button>
+          <el-button type="primary" plain size="small" >断言列表</el-button>
+          <el-button type="primary" plain size="small" >过滤列表</el-button>
         </el-button-group>
-        <el-button type="primary" id="onebut"
+        <el-button type="primary" id="onebut" @click="createpre()"
           >添加断言</el-button
         >
       </div>
@@ -74,17 +74,41 @@
         id="table2"
         v-else
       >
-        <el-table-column prop="id" label="服务名"> </el-table-column>
-        <el-table-column prop="url" label="URL"> </el-table-column>
-        <el-table-column prop="order" label="排序"> </el-table-column>
-        <el-table-column prop="client" label="是否进行心跳检测">
-        </el-table-column>
-        <el-table-column fixed="right" label="操作" width="220">
-          <template>
-            <el-button type="text" size="small"> 编辑 </el-button>
-            <el-button type="text" size="small"> 删除 </el-button>
-          </template>
-        </el-table-column>
+      <el-table-column
+        prop="name"
+        label='断言器类型'>
+      </el-table-column>
+      <el-table-column
+        prop="des"
+        label='描述'>
+      </el-table-column>
+       <el-table-column
+        prop="remark"
+        label='备注'>
+      </el-table-column>
+      <el-table-column
+        prop="config"
+        label='配置信息'>
+      </el-table-column>
+       <el-table-column
+      fixed="right"
+      label="操作"
+      width="220">
+      <template slot-scope="scope">
+        <el-button
+          @click="edit(scope.row)"
+          type="text"
+          size="small">
+          修改
+        </el-button>
+         <el-button
+          type="text"
+          size="small"
+          @click="remove(scope.row)">
+          删除
+        </el-button>
+      </template>
+    </el-table-column>
       </el-table>
     </div>
   </div>
@@ -96,17 +120,10 @@ export default {
     return {
       router_id: [
         {
-          id: "1",
-          url: "111",
-          order: "111",
-          client: "true",
-          predicates: {
-            PathRoutePredicateFactory: {
-              des: "路径匹配断言器",
-              note: "这是用来处理产品服务的路径断言器",
-              config: ["/product/list", "/product/insert"],
-            },
-          },
+          name:'111',
+          des:'11',
+          remark:'111',
+          config:[]
         },
       ],
       content: {
@@ -115,7 +132,7 @@ export default {
         order: "1",
         client: "1",
       },
-      choose:true,
+      choose:false,
     };
   },
   methods: {
@@ -123,15 +140,54 @@ export default {
       console.log(this.router_id)
       this.$http.post("/route/update", this.content).then((res) => {
         console.log(res);
+        this.$router.push('/config/list')
       });
     },
+    remove(row){
+      this.$http.post('/predicate/delete',{id:this.content.id,predicate_name:row.name}).then(res => {
+        console.log(res.data)
+        location.reload()
+      })
+    },
+    edit(row){
+      this.$router.push({
+        path:'/predicate/update',
+        query:{
+          remark:row.remark,
+          config:row.config,
+          id:row.id,
+          des:row.des,
+          name:row.name
+        }
+      })
+    },
+    createpre(){
+      this.$http.post("/route/update", this.content).then((res) => {
+        console.log(res);
+      });
+      this.$router.push(
+        {
+          path:"/predicate/create",
+          query:{
+            id:this.content.id
+          }
+        }
+      )
+    }
   },
   created(){
-    this.content.id = this.$route.query.id
-    this.content.url = this.$route.query.url
-    this.content.order = this.$route.query.order
-    this.content.client = this.$route.query.client
-    this.router_id[0] = this.$route.query
+    this.$http.get("/route/findById", { params: { routeId:this.$route.query.id } }).then(res => {
+      this.content = res.data
+      this.content.client = this.content.client?"true":"false"
+      console.log(res.data);
+      var predicates = res.data.predicates
+      var _route_id = []
+      for(let key in predicates){
+        _route_id.push(predicates[key])
+      }
+      this.router_id = _route_id
+      
+    })
   }
 };
 </script>

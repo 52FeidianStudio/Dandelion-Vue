@@ -9,6 +9,7 @@ import Filter from '@/components/filter'
 import Details from '@/components/details'
 import update from '@/components/update'
 import create from '@/components/create'
+import create_path from '@/components/create_path'
 
 Vue.use(VueRouter)
 
@@ -60,7 +61,13 @@ const routes = [
       path:'/config/create',
       name:'create',
       component:create
-    }]
+    },
+    {
+      path:'/predicate/create',
+      name:'create_path',
+      component:create_path
+    }
+  ]
   }
 ]
 

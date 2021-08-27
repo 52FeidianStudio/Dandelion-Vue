@@ -43,7 +43,7 @@
           <el-button type="primary" plain size="small">断言列表</el-button>
           <el-button type="primary" plain size="small">过滤列表</el-button>
         </el-button-group>
-        <el-button type="primary" id="onebut"
+        <el-button type="primary" id="onebut" @click="create_pre()"
           >添加断言</el-button
         >
       </div>
@@ -96,10 +96,10 @@ export default {
     return {
       router_id: [
         {
-          id: "11",
-          url: "1",
-          order: "1",
-          client: "true",
+          id: "",
+          url: "",
+          order: "",
+          client: "",
           predicates: {
             PathRoutePredicateFactory: {
               des: "路径匹配断言器",
@@ -127,6 +127,18 @@ export default {
         this.$router.push('/predicate/list')
       });
     },
+    create_pre(){
+      this.$http.post("/route/insert", this.content).then((res) => {
+        console.log(res);
+        console.log('成功发射')
+      });
+      this.$router.push({
+        path:'/predicate/create',
+        query:{
+          id:this.content.id
+        }
+      })
+    }
   },
 };
 </script>

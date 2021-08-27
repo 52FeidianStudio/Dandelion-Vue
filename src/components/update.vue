@@ -5,10 +5,12 @@
     </div>
     <el-form ref="form" :model="form" label-width="100px" id="up_form">
       <el-form-item label="断言器类型">
-        <el-select v-model="form.predicate_name" placeholder="请选择" class="input2">
-          <el-option label="Path" value='Path'></el-option>
-          <el-option label="Remark" value='Remark'></el-option>
-        </el-select>
+        <el-input
+          v-model="form.name"
+          :disabled="true"
+          class="input2"
+        >
+        </el-input>
       </el-form-item>
 
       <el-form-item label="类型描述">
@@ -71,17 +73,25 @@ export default {
         des: "11",
         remark:'1111',
         config:[],
-        predicate_name:''
+        name:''
       },
     };
   },
   methods: {
     change() {
-      this.$http.post('/predicate/update',this.form).then(res => {
-        console.log(res,this.form.predicate_name)
-        this.$router.push('/predicate/list')
+      var form = JSON.parse(JSON.stringify(this.form));//复制对象
+      var config = form.config
+      config = config.trim()
+      config = config.replace('\n','')
+      form.config = config.split(',')
+      console.log(form.config);
+      this.$http.post('/predicate/update',form).then(res => {
+        console.log(res,this.form.config[0],"ok")
+        this.$router.push({
+          path:'/predicate/list',
+        })
       }).catch(err => {
-        console.log(err,this.form.predicate_name)
+        console.log(err,'错')
       })
     },
   },
@@ -89,11 +99,9 @@ export default {
     this.form.remark = this.$route.query.remark
     this.form.config = this.$route.query.config[0]
     this.form.id = this.$route.query.id
-    this.$http.get('/route/predicate/list').then(res => {
-      this.form.des = res.data.remark
-    }).catch(err => {
-      console.log(err,'cuole')
-    })
+    this.form.des = this.$route.query.des
+    this.form.name = this.$route.query.name
+
   }
 };
 </script>

@@ -26,6 +26,7 @@
           <el-button type="primary" id="search">查询</el-button>
         </el-col>
       </el-row>
+      <el-button type="primary" id="button2" >新增断言</el-button>
     </div>
     <el-table
       :data="Path"
@@ -94,7 +95,9 @@ export default {
         query:{
           remark:row.remark,
           config:row.config,
-          id:row.id
+          id:row.id,
+          des:row.des,
+          name:row.predicate_name
         }
       })
     }
@@ -130,8 +133,7 @@ export default {
   created(){
     this.$http.get('/predicate/list').then(res => {
       this.Path = res.data
-
-      console.log(res.data,'请求成功')
+      // console.log(res.data,'请求成功')
     })
   }
 };
@@ -171,5 +173,10 @@ export default {
 }
 #search{
   margin-left: 40px;
+}
+#button2 {
+  position: relative;
+  top: -56px;
+  left: 980px;
 }
 </style>
